@@ -1,0 +1,52 @@
+.menu-icon-kredittkort .dashicons-before:before {
+	color: hsl(120, 50%, 50%) !important;
+	/*background-color: red !important;*/
+}
+
+.kredittkort-sort-container {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.kredittkort-meta-container input {
+	width: 300px;
+	margin: 0 10px 10px 0;
+}
+
+.kredittkort-sort-container input {
+	width: 150px;
+}
+
+.kredittkort-info-container {
+	display: inline-grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.kredittkort-input-title {
+	font-size: 16px;
+}
+
+/* overview window */
+
+#kredittkort-myTable2 {
+	border-collapse:separate; 
+  	border-spacing: 0 3px;
+}
+
+#kredittkort-myTable2 tr:nth-child(even) {
+	background-color: #fff;
+}
+
+#kredittkort-myTable2 tr:hover {
+	background-color: #aae;
+	/*border: solid 1px black;*/
+	/*margin-bottom: 30px;*/
+}
+
+#kredittkort-myTable2 th {
+	cursor: pointer;
+}
+
+#kredittkort-myTable2 td {
+	padding: 3px 10px;
+}
