@@ -215,13 +215,13 @@ final class Kredittkort_shortcode {
 			$html .= '<div class="kredittkort-thumbnail"><img class="kredittkort-thumbnail-image" src="'.get_the_post_thumbnail_url($p).'"></div>';
 			
 			// info en
-			$html .= '<div class="kredittkort-info-0 kredittkort-info">'.$meta['info01'].'</div>';
+			if ($meta['info01']) $html .= '<div class="kredittkort-info-0 kredittkort-info">'.$meta['info01'].'</div>';
 
 			// info to
-			$html .= '<div class="kredittkort-info-1 kredittkort-info">'.$meta['info02'].'</div>';
+			if ($meta['info02']) $html .= '<div class="kredittkort-info-1 kredittkort-info">'.$meta['info02'].'</div>';
 
 			// info tre
-			$html .= '<div class="kredittkort-info-2 kredittkort-info">'.$meta['info03'].'</div>';
+			if ($meta['info03']) $html .= '<div class="kredittkort-info-2 kredittkort-info">'.$meta['info03'].'</div>';
 
 			// bestill button
 			$html .= '<div class="kredittkort-sokna">';
@@ -275,16 +275,16 @@ final class Kredittkort_shortcode {
 			$html .= '<div class="kredittkort-lesmer"><a class="kredittkort-link kredittkort-lesmer-lenke" href="'.esc_url($meta['readmore']).'">Les Mer</a></div>';
 			
 			// aldersgrense 
-			$html .= '<div class="kredittkort-aldersgrense">'.$meta['info05'].'</div>';
+			if ($meta['info05']) $html .= '<div class="kredittkort-aldersgrense">'.$meta['info05'].'</div>';
 
 			// maks rente
-			$html .= '<div class="kredittkort-makskreditt">'.$meta['info06'].'</div>';
+			if ($meta['info06']) $html .= '<div class="kredittkort-makskreditt">'.$meta['info06'].'</div>';
 			
 			// rentefri kreditt
-			$html .= '<div class="kredittkort-rentefrikreditt">'.$meta['info07'].'</div>';
+			if ($meta['info07']) $html .= '<div class="kredittkort-rentefrikreditt">'.$meta['info07'].'</div>';
 			
 			// effektiv rente
-			$html .= '<div class="kredittkort-effrente">'.$meta['info08'].'</div>';
+			if ($meta['info08']) $html .= '<div class="kredittkort-effrente">'.$meta['info08'].'</div>';
 
 			// blurb and logos
 			$html .= '<div class="kredittkort-blurb"><div class="kredittkort-blurb-text">'.$meta['info04'].'</div>';
