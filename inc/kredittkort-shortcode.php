@@ -121,11 +121,19 @@ final class Kredittkort_shortcode {
 		$meta = get_post_meta($post[0]->ID, 'kredittkort_data');
 		if (isset($meta[0])) $meta = $meta[0];
 
+		$float = false;
+		if ($atts['float']) 
+			switch ($atts['float']) {
+				case 'left': $float = ' style="float: left; margin-right: 3rem;"'; break;
+				case 'right': $float = ' style="float: right; margin-left: 3rem;"'; break;
+			}
+		
+
 		// returns with anchor
-		if ($meta['bestill']) return '<div class="kredittkort-logo-ls"><a target="_blank" rel=noopener href="'.esc_url($meta['bestill']).'"><img alt="'.esc_attr($post[0]->post_title).'" style="width: 100%; height: auto;" src="'.esc_url(get_the_post_thumbnail_url($post[0], 'full')).'"></a></div>';
+		if ($meta['bestill']) return '<div class="kredittkort-logo-ls"'.($float ? $float : '').'><a target="_blank" rel=noopener href="'.esc_url($meta['bestill']).'"><img alt="'.esc_attr($post[0]->post_title).'" src="'.esc_url(get_the_post_thumbnail_url($post[0], 'full')).'"></a></div>';
 
 		// anchor-less image
-		return '<div class="kredittkort-logo-ls"><img alt="'.esc_attr($post[0]->post_title).'" style="width: 100%; height: auto;" src="'.esc_url(get_the_post_thumbnail_url($post[0], 'full')).'"></div>';
+		return '<div class="kredittkort-logo-ls"'.($float ? $float : '').'><img alt="'.esc_attr($post[0]->post_title).'" src="'.esc_url(get_the_post_thumbnail_url($post[0], 'full')).'"></div>';
 	}
 
 
@@ -154,7 +162,16 @@ final class Kredittkort_shortcode {
 		if (!$meta['bestill']) return;
 
 		add_action('wp_enqueue_scripts', array($this, 'add_css'));
-		return '<div class="kredittkort-bestill kredittkort-bestill-mobile"><a target="_blank" rel="noopener" class="kredittkort-link" href="'.esc_url($meta['bestill']).'"><svg class="kredittkort-svg" version="1.1" x="0px" y="0px" width="26px" height="20px" viewBox="0 0 26 20" enable-background="new 0 0 24 24" xml:space="preserve"><path fill="none" d="M0,0h24v24H0V0z"/><path class="kredittkort-thumb" d="M1,21h4V9H1V21z M23,10c0-1.1-0.9-2-2-2h-6.31l0.95-4.57l0.03-0.32c0-0.41-0.17-0.79-0.44-1.06L14.17,1L7.59,7.59C7.22,7.95,7,8.45,7,9v10c0,1.1,0.9,2,2,2h9c0.83,0,1.54-0.5,1.84-1.22l3.02-7.05C22.95,12.5,23,12.26,23,12V10z"/></svg> Ansök här!</a></div>';
+
+		$float = false;
+		if ($atts['float']) 
+			switch ($atts['float']) {
+				case 'left': $float = ' style="float: left; margin-right: 3rem;"'; break;
+				case 'right': $float = ' style="float: right; margin-left: 3rem;"'; break;
+			}
+
+		add_action('wp_enqueue_scripts', array($this, 'add_css'));
+		return '<div class="kredittkort-bestill kredittkort-bestill-mobile"'.($float ? $float : '').'><a target="_blank" rel="noopener" class="kredittkort-link kredittkort-sokna-lenke" href="'.esc_url($meta['bestill']).'"><svg class="kredittkort-svg" version="1.1" x="0px" y="0px" width="26px" height="20px" viewBox="0 0 26 20" enable-background="new 0 0 24 24" xml:space="preserve"><path fill="none" d="M0,0h24v24H0V0z"/><path class="kredittkort-thumb" d="M1,21h4V9H1V21z M23,10c0-1.1-0.9-2-2-2h-6.31l0.95-4.57l0.03-0.32c0-0.41-0.17-0.79-0.44-1.06L14.17,1L7.59,7.59C7.22,7.95,7,8.45,7,9v10c0,1.1,0.9,2,2,2h9c0.83,0,1.54-0.5,1.84-1.22l3.02-7.05C22.95,12.5,23,12.26,23,12V10z"/></svg> Bestill Kortet</a></div>';
 	}
 
 
@@ -173,10 +190,9 @@ final class Kredittkort_shortcode {
 	 * @return [html]        html list of loans
 	 */
 	private function get_html($posts) {
-		$html = '<ul class="kredittkort-ul">';
+
 
 		foreach ($posts as $p) {
-			
 			$meta = get_post_meta($p->ID, 'kredittkort_data');
 
 			// skip if no meta found
@@ -186,67 +202,29 @@ final class Kredittkort_shortcode {
 			// sanitize meta
 			$meta = $this->esc_kses($meta);
 
-			// grid container
-			$html .= '<li class="kredittkort-container">';
+			$html = '<div class="kredittkort-container">'; // add class here
+			
+			for ($i = 1; $i <= 6; $i++) 
+				$html .= '<div class="kredittkort-sep kredittkort-sep-'.$i.'"></div>';
+			
+			// title 
+			$html .= '<div class="kredittkort-title"><h2 class="kredittkort-title-header"><a class="kredittkort-title-text" href="'.esc_url($meta['readmore']).'">'.esc_html($p->post_title).'</a></h2></div>';
+		
+			// image
+			$html .= '<div class="kredittkort-thumbnail"><img class="kredittkort-thumbnail-image" src="'.get_the_post_thumbnail_url($p).'"></div>';
+			
+			// info en
+			$html .= '<div class="kredittkort-info-0 kredittkort-info">'.$meta['info01'].'</div>';
 
-			// title
-			$html .= '<div class="kredittkort-title-container"><a class="kredittkort-title" href="'.$meta['readmore'].'">'.wp_kses_post($p->post_title).'</a></div>';
+			// info to
+			$html .= '<div class="kredittkort-info-1 kredittkort-info">'.$meta['info02'].'</div>';
 
-			// thumbnail
-			$html .= '<div class="kredittkort-logo-container"><a target="_blank" rel="noopener" href="'.$meta['bestill'].'"><img class="kredittkort-logo" src="'.wp_kses_post(get_the_post_thumbnail_url($p,'post-thumbnail')).'"></a></div>';
+			// info tre
+			$html .= '<div class="kredittkort-info-2 kredittkort-info">'.$meta['info03'].'</div>';
 
-			// lesmer
-			$html .= '<div class="kredittkort-lesmer-container"><a class="kredittkort-lesmer-link" href="'.$meta['readmore'].'">Les Mer</a></div>';
+			// bestill button
+			$html .= '<div class="kredittkort-sokna">';
 
-			// info container
-			$html .= '<div class="kredittkort-info-container">';
-
-			// info 1
-			if ($meta['info01']) $html .= '<div class="kredittkort-info kredittkort-info-en">'.$meta['info01'].'</div>';
-
-			// info 2
-			if ($meta['info02']) $html .= '<div class="kredittkort-info kredittkort-info-to">'.$meta['info02'].'</div>';
-
-			// info 3
-			if ($meta['info03']) $html .= '<div class="kredittkort-info kredittkort-info-tre">'.$meta['info03'].'</div>';
-
-
-			$html .= '</div>';
-
-			// info list container 
-			$html .= '<div class="kredittkort-list-container">';
-
-			// info 5
-			if ($meta['info05']) $html .= '<div class="kredittkort-info kredittkort-info-fem">'.$meta['info05'].'</div>';
-
-			// info 6
-			if ($meta['info06']) $html .= '<div class="kredittkort-info kredittkort-info-seks">'.$meta['info06'].'</div>';
-
-			// info 7
-			if ($meta['info07']) $html .= '<div class="kredittkort-info kredittkort-info-syv">'.$meta['info07'].'</div>';
-
-
-			$html .= '</div>';
-
-			$html .= '<div class="kredittkort-bunnlinje-container">';
-
-			$html .= '<div class="kredittkort-info-fire">';
-
-			$html .= '<div class="kredittkort-small-logo">test</div>';
-			// info 4 (bunnlinje info)
-			$html .= '<div class="kredittkort-info kredittkort-info-fire-inner">'.$meta['info04'].'</div>';
-			// if ($meta['info04']) $html .= '<div class="kredittkort-info kredittkort-info-fire-inner">'.$meta['info04'].'</div>';
-
-
-			$html .= '</div>';
-
-			// info 8 (effektiv rente)
-			if ($meta['info08']) $html .= '<div class="kredittkort-info kredittkort-info-atte">'.$meta['info08'].'</div>';
-
-			$html .= '</div>';
-
-			$html .= '<div class="kredittkort-end-container">';
-			// terning
 			if ($meta['terning'] != 'ingen') {
 				$html .= '<svg class="kredittkort-terning">
 							<defs>
@@ -255,7 +233,7 @@ final class Kredittkort_shortcode {
 							      <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
 							    </linearGradient>
 							  </defs>
-							<rect class="kredittkort-rect-svg" rx="7" ry="7" fill="url(#kredittkort-grad)"/>';
+							<rect class="rect-svg" rx="7" ry="7" fill="url(#kredittkort-grad)"/>';
 
 				switch ($meta['terning']) {
 
@@ -289,19 +267,46 @@ final class Kredittkort_shortcode {
 				$html .= '</svg>';
 			}
 
-			// bestill 
-			$html .= '<div class="kredittkort-bestill-container">';
-			$html .= '<div class="kredittkort-bestill"><a target="_blank" rel="noopener" class="kredittkort-link" href="'.$meta['bestill'].'"><svg class="kredittkort-svg" version="1.1" x="0px" y="0px" width="26px" height="20px" viewBox="0 0 26 20" enable-background="new 0 0 24 24" xml:space="preserve"><path fill="none" d="M0,0h24v24H0V0z"/><path class="kredittkort-thumb" d="M1,21h4V9H1V21z M23,10c0-1.1-0.9-2-2-2h-6.31l0.95-4.57l0.03-0.32c0-0.41-0.17-0.79-0.44-1.06L14.17,1L7.59,7.59C7.22,7.95,7,8.45,7,9v10c0,1.1,0.9,2,2,2h9c0.83,0,1.54-0.5,1.84-1.22l3.02-7.05C22.95,12.5,23,12.26,23,12V10z"/></svg> Ansök här!</a></div>';
-			// $html .= '<div class="kredittkort-bestilltext">'.$meta['bestill_text'].'</div>';
+			$html .= '<a target="_blank" rel="noopener" class="kredittkort-link kredittkort-sokna-lenke" href="'.esc_url($meta['bestill']).'">Bestill Kortet</a>';
+			$html .= '</div>';
+			
+			// read more button
+			$html .= '<div class="kredittkort-lesmer"><a class="kredittkort-link kredittkort-lesmer-lenke" href="'.esc_url($meta['readmore']).'">Les Mer</a></div>';
+			
+			// aldersgrense 
+			$html .= '<div class="kredittkort-aldersgrense">'.$meta['info05'].'</div>';
+
+			// maks rente
+			$html .= '<div class="kredittkort-makskreditt">'.$meta['info06'].'</div>';
+			
+			// rentefri kreditt
+			$html .= '<div class="kredittkort-rentefrikreditt">'.$meta['info07'].'</div>';
+			
+			// effektiv rente
+			$html .= '<div class="kredittkort-effrente">'.$meta['info08'].'</div>';
+
+			// blurb and logos
+			$html .= '<div class="kredittkort-blurb"><div class="kredittkort-blurb-text">'.$meta['info04'].'</div>';
+
+
+			// visa/mastercard logo 
+			$html .= '<div class="kredittkort-logo-container">';
+
+			$terms = wp_get_post_terms($p->ID, 'kredittkorttype');
+			foreach($terms as $term) {
+				switch ($term->slug) {
+					case 'visa': $html .= '<img class="kredittkort-logo" src="'.KREDITTKORT_PLUGIN_URL.'assets/img/visa-logo.png">'; break;
+					case 'mastercard': $html .= '<img class="kredittkort-logo" src="'.KREDITTKORT_PLUGIN_URL.'assets/img/mastercard-logo.png">'; break;
+				}
+			}
+
+			$html .= '</div>'; // visa/mastercard container
+
+			$html .= '</div>'; // blurb container
+			
 			$html .= '</div>';
 
-			$html .= '</div>'; // end-container
-
-			$html .= '</li>';
 		}
-
-		$html .= '</ul>';
-
 		return $html;
 	}
 

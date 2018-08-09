@@ -1,210 +1,361 @@
 /*
-
-	1.0 container
-		1.1 <ul> .kredittkort-ul
-		1.2 <li> .kredittkort-container
-	2.0 elements (in the container)
-		2.1 bold elements
-		2.2 title
-		2.3 logo (max width: 18rem)
-		2.4 info container
-			2.4.1 info elements
-		2.5 list container
-			2.5.1 list elements
-		2.6 dice
-		2.7 bestill button
-			2.7.1 bestill anchor
-			2.7.2 bestill svg
-			2.7.3 bestill text
-		3.0 other browsers
-			3.1 older safari/edge
-			3.2 internet explorer
-
-	LAYOUT:
-	title   title   title   title   
-	logo 	list 	info 	bestill
-	logo	list 	info 	bestill/bestill text
-	logo	list    info    bestill
-	lesmer  bunnlinje     effektiv rente
-
+	INDEX
+	#####
+	-default
+	1.0 GRID
+	-list
+	-container
+		TITLE
+		THUMBNAIL
+		LENKE-TEMPLATE
+		LESMER
+		INFO
+			INFO-ONE
+			INFO-TWO
+			INFO-THREE
+		BLURB
+		ALDERSGRENSE (ALDERSGRENSE OVERWRITE)
+		MAKS KREDITT
+		RENTEFRI KREDITT
+		BESTILL
+		EFFRENTE
+	-internet explorer fixes
 */
 
-
-/* 1.0 container */
-
-/* 1.1 list */
-.kredittkort-ul {
-	margin: 0;
-	padding: 0;
-	clear: both;
+html {
+	font-size: 62.5%;
 }
 
+p:empty {
+	display: none;
+}
 
-/* 1.2 list item */
+/* special rule with bb-code */
+.kredittkort-fat {
+	font-weight: bold;
+}
+
+/*
+	1.0 SECTION
+	Grid
+*/
+
+.kredittkort-kortliste {
+	padding: 0;
+	opacity: 1 !important;
+	color: hsl(0, 20%, 20%);
+	margin-top: 2rem;
+}
+
 .kredittkort-container {
 	display: grid;
+	display: -ms-grid;
 
-	/*grid-template-columns: minmax(10rem, 20rem) minmax(20rem, 1fr) minmax(20rem, 1fr) minmax(auto, 20rem);*/
-	/*grid-template-rows: minmax(2.5rem, auto) auto;*/
+	grid-template-columns: 23rem 1px 5fr 1px 15rem 1px 2fr 1px 23rem;
+	-ms-grid-columns: 23rem 1px 5fr 1px 15rem 1px 2fr 1px 23rem;
 
-	grid-template-columns: 20rem 3fr 2fr 20rem;
-	grid-template-rows: auto 12rem auto;
+	grid-template-rows: 3.5rem repeat(3, 4.6rem) 1px 4.6rem;
+	-ms-grid-rows: 3.5rem 4.6rem 4.6rem 4.6rem 1px 4.6rem;
 
 	grid-template-areas:
-	"title title . ." 
-	"logo infoC infoL endc"
-	"lesmer infoBC infoBC infoBC";
+		"title title title title title title title title title"
+		"thumbnail sep1 info-one sep2 alder alder alder sep3 bestill"
+		"thumbnail sep1 info-two sep2 kreditt kreditt kreditt sep3 bestill"
+		"thumbnail sep1 info-three sep2 rentefri rentefri rentefri sep3 ."
+		"sep6 sep6 sep6 sep6 sep6 sep6 sep6 sep6 sep6"
+		"lesmer sep4 blurb blurb blurb sep5 effrente effrente effrente";
 
-	padding: 0.5rem 1rem;
-	/*padding: 2rem 1rem 1rem 1rem;*/
+	margin-bottom: 2rem;
+	background-color: hsl(204, 8%, 98%);
+	border-top: solid 1px;
+	border-color: hsl(0, 0%, 85%);
+	list-style: none;
 
-	border-bottom: solid 1px #aaa;
+	text-align: center;
+
+	/* default font stuff b/c this is a plugin */
 	font-size: 1.4rem;
+	font-weight: 400;
+	font-style: normal;
+	font-family: arial;
+	clear: both;
+
 }
-
-
-/* list item background */
 .kredittkort-container:nth-child(odd) {
-	background-color: #eee;
+	background-color: hsl(0, 0%, 94%);;
+	border-color: hsl(0, 0%, 75%);
 }
 
-
-/* removes border from last item*/
-.kredittkort-container:last-child {
-	border-bottom: none;
+.kredittkort-sep {
+	border-right: dotted 1px;
+	border-color: inherit;
+	margin: 5px 0;
 }
 
-/* 2.0 elements in container */
-
-/* 2.1 bold elements */
-.kredittkort-title,
-.kredittkort-info-en,
-.kredittkort-info-fem {
-	font-weight: 700;
+.kredittkort-sep-1 {
+	grid-area: sep1;
+}
+.kredittkort-sep-2 {
+	grid-area: sep2;
 }
 
-/* 2.2 title */
-.kredittkort-title-container {
-	grid-area: title;
-	/*white-space: nowrap;*/
-	z-index: 10;
-	/*margin-top: 1rem;*/
-
-	/*background-color: inherit;*/
+.kredittkort-sep-3 {
+	grid-area: sep3;
 }
+
+.kredittkort-sep-4 {
+	grid-area: sep4;
+}
+
+.kredittkort-sep-5 {
+	grid-area: sep5;
+}
+
+.kredittkort-sep-6 {
+	border: none;
+	border-top: dotted 1px;
+	border-color: inherit;
+	grid-area: sep6;
+	margin: 0;
+}
+
+/* 	TITLE
+	DIV -> H2 -> A
+*/
 .kredittkort-title {
+	grid-area: title;
+
+	padding-left: 1.6rem;
+
+	text-align: left;
+}
+.kredittkort-title-header {
+	margin: 0;
+	user-select: none;
+}
+.kredittkort-title-text {
+	color: inherit;
+	font-weight: normal;
 	font-size: 1.6rem;
-	color: #000;
-	/*background-color: inherit;*/
+	text-decoration: none;
+	font-weight: bold;
 }
 
-
-/* 2.3 logo */
-.kredittkort-logo-container {
-	grid-area: logo;
+/* 	THUMBNAIL 
+	DIV -> IMG 
+*/
+.kredittkort-thumbnail {
+	grid-area: thumbnail;
+	border-radius: 8px;
+	margin: 0 auto; /* centering in edge */
 }
-.kredittkort-logo {
-	width: 18rem;
-	height: auto;
+.kredittkort-thumbnail-image {
+	/*width: 20rem;*/
+	border-radius: 8px;
+	user-select: none;
 }
 
-/* 2.3 lesmer */
-.kredittkort-lesmer-container {
+.kredittkort-thumbnail-left {
+	float: left;
+}
+
+.kredittkort-thumbnail-center {
+	width: 20rem;
+	margin: auto;
+}
+
+.kredittkort-thumbnail-right {
+	float: right;
+}
+
+/*	LENKE-TEMPLATE
+	A
+*/
+.kredittkort-link {
+	padding: 1rem 2rem;
+	border-radius: 0.5rem;
+	text-decoration: none;
+	color: #fff;
+	text-shadow: 0 0 1px #000;
+}
+
+.kredittkort-bestill {
+	text-align: center;
+	margin: 3rem 0;
+}
+
+.kredittkort-thumb {
+	fill: #fff;
+}
+
+/* 	LESMER
+	DIV -> A
+*/
+.kredittkort-lesmer {
 	grid-area: lesmer;
-	padding-top: 0.5rem;
-	margin-right: 0.1rem;
-	border-top: dotted 1px #666;
-
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	align-self: center;
+	user-select: none;
+}
+.kredittkort-lesmer-lenke {
+	background: linear-gradient(hsl(240, 10%, 80%), hsl(240, 10%, 70%));
+	font-weight: 700;
+	padding: 0.5rem 2rem;
+}
+.kredittkort-lesmer-lenke:hover {
+	background: linear-gradient(hsl(240, 10%, 70%), hsl(240, 10%, 60%));
 }
 
-.kredittkort-lesmer-link {
-background: linear-gradient(hsl(240, 10%, 80%), hsl(240, 10%, 70%));
-    font-weight: 700;
-    padding: 0.5rem 2rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    color: #fff;
-    text-shadow: 0 0 1px #000;
-}
-
-/* 2.4 info container */
-
-.kredittkort-info-container,
-.kredittkort-list-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	border-right: dotted 1px #333;
-	margin-bottom: 0.5rem;
-}
-
-.kredittkort-info-container {
-	grid-area: infoC;
-
-
-
-	border-left: dotted 1px #333;
-
-
-}
-
-
-/* 2.4.1 info element (and list info elements) */
+/* INFO TEMPLATE */
 .kredittkort-info {
-	margin: 0 0 1rem 2rem;
-	/*margin: 0 0 1rem 6rem;*/
-}
-
-
-/* 2.5 list container */
-.kredittkort-list-container {
-	grid-area: infoL;
-	/*display: flex;*/
-	/*flex-direction: column;*/
-	/*justify-content: space-between;*/
-	/*margin-bottom: 0.5rem;*/
-	/*border-right: dotted 1px #333;*/
-}
-
-
-/* 2.5.1 list info 
-   info elements styled as list-item */
-.kredittkort-info-en,
-.kredittkort-info-to,
-.kredittkort-info-tre {
-/*.kredittkort-info-atte {*/
 	display: list-item;
-	list-style: disc;
-} 
-
-/* dice and bestill */
-.kredittkort-end-container {
-	grid-area: endc;
-
-	margin-top: 2.5rem;
-
-	display: flex;
-	justify-content: space-around;
-	align-items: flex-end;
-	flex-wrap: wrap-reverse;
+	margin: 0 1rem 0 2rem;
+	list-style: disc outside;
+	text-align: left;
+	line-height: 1;
 }
 
-/* 2.6 dice */
+/*
+	INFO-ONE
+	DIV
+*/
+.kredittkort-info-0 {
+	grid-area: info-one;
+}
+
+/*
+	INFO-TWO
+	DIV
+*/
+.kredittkort-info-1 {
+	grid-area: info-two;
+}
+
+/*
+	INFO-THREE
+	DIV
+*/
+.kredittkort-info-2 {
+	grid-area: info-three;
+}
+
+/*
+	BLURB
+	DIV SPAN.text DIV.logo
+*/
+.kredittkort-blurb {
+	grid-area: blurb;
+	padding-left: 2rem;
+	display: flex;
+	justify-content: space-between;
+	line-height: 3.2;
+}
+.kredittkort-logo-container {
+	position: relative;
+	right: 0rem;
+	user-select: none;
+}
+
+.kredittkort-logo {
+	position: relative;
+	top: 0.5rem;
+	right: 1rem;
+
+	max-width: 100%;
+}
+
+.kredittkort-logo-ls {
+	text-align: center;
+	max-width: 100%;
+}
+
+/* COLUMN 3 TEMPLATE */
+.kredittkort-aldersgrense,
+.kredittkort-alderow,
+.kredittkort-makskreditt,
+.kredittkort-rentefrikreditt {
+	justify-self: left;
+	padding-left: 1rem;
+}
+
+/*
+	ALDERSGRENSE
+	DIV
+*/
+.kredittkort-aldersgrense {
+	grid-area: alder;
+	line-height: 1;
+}
+
+/* alternate for aldersgrense area*/
+.kredittkort-alderow {
+	grid-area: alder;
+	line-height: 1;
+}
+
+
+/*
+	MAKS KREDITT
+	DIV
+*/
+.kredittkort-makskreditt {
+	grid-area: kreditt;
+	line-height: 1;
+}
+
+
+/*
+	RENTFRI KREDITT
+	DIV
+*/
+.kredittkort-rentefrikreditt {
+	grid-area: rentefri;
+	line-height: 1;
+}
+
+
+/*
+	BESTILL
+	DIV -> A
+*/
+.kredittkort-sokna {
+	grid-area: bestill;
+	align-self: center;
+	justify-self: center;
+	text-align: center;
+	margin: auto;
+}
+
+.kredittkort-sokna:after {
+	display: block;
+	content: 'annonselenke';
+	position: relative;
+	top: 1rem;
+}
+.kredittkort-sokna-lenke {
+	font-size: 2.2rem;
+	font-weight: 700;
+	line-height: 1;
+	background: linear-gradient(hsl(120, 70%, 60%), hsl(120, 70%, 30%));
+	user-select: none;
+	white-space: nowrap;
+}
+.kredittkort-sokna-lenke:hover {
+	background: linear-gradient(hsl(120, 70%, 50%), hsl(120, 70%, 20%));
+}
+
+.kredittkort-sokna-bestill {
+	position: relative;
+	top: 2rem;
+	margin-bottom: 4rem;
+}
+
 .kredittkort-terning {
-	/*grid-area: terning;*/
-
-	/*justify-self: center;*/
-	/*align-self: center;*/
-	/*margin-bottom: 0.5rem;*/
-
 	width: 50px;
 	height: 50px;
 	background-color: #e22;
 	border-radius: 3px;
 	margin: 0 1rem;
+	margin-bottom: 2rem;
 }
 
 
@@ -212,7 +363,6 @@ background: linear-gradient(hsl(240, 10%, 80%), hsl(240, 10%, 70%));
 .kredittkort-rect-svg {
 	height: 50px;
 	width: 50px;
-	/*fill: #0f0;*/
 }
 
 
@@ -221,167 +371,186 @@ background: linear-gradient(hsl(240, 10%, 80%), hsl(240, 10%, 70%));
 	fill: #ffffff;
 }
 
-
-/* 2.7 bestill button */
-.kredittkort-bestill-container {
-	margin-left: 1rem;
-	/*grid-area: bestillc;*/
-	/*align-self: center;*/
-	/*margin-top: 1.6rem;*/
-}
-.kredittkort-bestill {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+/*
+	EFFRENTE
+	DIV
+*/
+.kredittkort-effrente {
+	grid-area: effrente;
+	align-self: center;
 }
 
 
-/* 2.7.1 bestill anchor */
-.kredittkort-link {
-	padding: 1rem 2rem;
 
-	background-image: linear-gradient(hsl(120, 70%, 60%) 0%, hsl(120, 70%, 50%) 100%);
-	border: solid 1px hsl(120, 50%, 60%);
-	border-radius: 5px;
 
-	font-size: 2.2rem;
-	font-weight: 700;
-	color: #fff;
-	text-shadow: 0 0 2px #000;
-	font-family: arial;
-	text-decoration: none;
+/*INTERNET EXPLORER*/
+.kredittkort-title {
+	-ms-grid-row: 1;
+	-ms-grid-column: 1;
+	-ms-grid-column-span: 9;
+}
 
-	white-space: nowrap;
+.kredittkort-thumbnail {
+	-ms-grid-row: 2;
+	-ms-grid-row-span: 2;
+	-ms-grid-column: 1;
+}
+
+.kredittkort-sep-6 {
+	-ms-grid-row: 5;
+	-ms-grid-column: 1;
+	-ms-grid-column-span: 9;
+}
+
+.kredittkort-lesmer {
+	-ms-grid-row: 6;
+	-ms-grid-column: 1;
+	-ms-grid-row-align: center;
+}
+
+.kredittkort-sep-1 {
+	-ms-grid-column: 2;
+	-ms-grid-row: 2;
+	-ms-grid-row-span: 3;
+}
+
+.kredittkort-sep-2 {
+	-ms-grid-column: 4;
+	-ms-grid-row: 2;
+	-ms-grid-row-span: 3;
+}
+
+.kredittkort-sep-3 {
+	-ms-grid-column: 8;
+	-ms-grid-row: 2;
+	-ms-grid-row-span: 3;
+}
+
+.kredittkort-sep-4 {
+	-ms-grid-column: 2;
+	-ms-grid-row: 6;
+}
+
+.kredittkort-sep-5 {
+	-ms-grid-column: 6;
+	-ms-grid-row: 6;
 }
 
 
-/* 2.7.2 bestill svg (thumb icon )*/
-.kredittkort-svg {
-	filter: drop-shadow(1px 1px 1px #333);
-}
-.kredittkort-thumb {
-	fill: #fff;
+.kredittkort-info-0 {
+	-ms-grid-row: 2;
+	-ms-grid-column: 3;
 }
 
-
-/* 2.7.3 bestill text */
-/*.kredittkort-bestilltext {
-	margin-top: 0.5rem;
-	text-align: center;
-	padding-bottom: 1rem;
-}*/
-
-/* bunnlinje info */
-.kredittkort-bunnlinje-container {
-	grid-area: infoBC;
-
-	display: flex;
-	/*justify-content: space-between;*/
-	align-items: center;
-	/*margin-left: 0.3rem;*/
-
-	padding-top: 0.5rem;
-
-	border-top: dotted 1px #666;
-	/*border-left: dotted 1px #666;*/
-	/*border-right: dotted 1px #666;*/
-
+.kredittkort-info-1 {
+	-ms-grid-row: 3;
+	-ms-grid-column: 3;
 }
 
-.kredittkort-info-fire {
-	/*width: 35rem;*/
-	align-self: stretch;
-
-	margin: 0;
-	margin-right: auto;
-	padding-left: 2rem;
-
-	border-right: dotted 1px #666;
-	border-left: dotted 1px #666;
-
-	display: flex;
-	flex-direction: row-reverse;
-	justify-content: space-between;
-	align-items: center;
+.kredittkort-info-2 {
+	-ms-grid-row: 4;
+	-ms-grid-column: 3;
 }
 
-.kredittkort-info-fire-inner {
-	margin: 0;
+.kredittkort-blurb {
+	-ms-grid-row: 6;
+	-ms-grid-column: 3;
+	-ms-grid-column-span: 3;
 }
 
-.kredittkort-info-atte {
-	margin-bottom: 0;
+.kredittkort-aldersgrense,
+.kredittkort-alderow,
+.kredittkort-makskreditt,
+.kredittkort-rentefrikreditt {
+	text-align: left;
+	-ms-grid-column: 5;
+	-ms-grid-column-span: 3;
 }
 
-.kredittkort-small-logo {
-	margin-right: 1rem;
+.kredittkort-aldersgrense {
+	-ms-grid-row: 2;
 }
 
-/* 3.0 other browsers */
+.kredittkort-alderow {
+	-ms-grid-row: 2;
+}
 
-/* 3.1 old safari and edge */
-@supports not (display: grid) {
+.kredittkort-makskreditt {
+	-ms-grid-row: 3;
+}
 
-	/* turn grid into flexbox */
-	.kredittkort-container {
+.kredittkort-rentefrikreditt {
+	-ms-grid-row: 4;
+}
+
+.kredittkort-sokna {
+	-ms-grid-row: 3;
+	-ms-grid-row-span: 2;
+	-ms-grid-column: 9;
+}
+
+.kredittkort-effrente {
+	-ms-grid-row: 6;
+	-ms-grid-column: 7;
+	-ms-grid-column-span: 3;
+	-ms-grid-row-align: center;
+}
+
+/* DESKTOP SAFARI VERSION 9 - 9.1 - 10 */
+@supports not (display: grid) and not (display: -ms-grid) {
+	.kredittkort-kortliste {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-between;
-		padding: 1rem;
 	}
 
-	/* one line in flexbox */
-	.kredittkort-title-container {
-		width: 100%;
-		margin-bottom: 10px;
-	}
-
-	/* making elements aligned */
-	.kredittkort-info-container,
-	.kredittkort-list-container {
-		width: 30rem;
-	}
-} 
-
-/* 3.2 internet explorer */
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
 	.kredittkort-container {
-		display: -ms-grid;
-		-ms-grid-columns: 20rem 1fr 1fr auto;
-		-ms-grid-rows: 2.5rem auto;
+		width: 33%;
 	}
 
-	.kredittkort-title-container {
-		-ms-grid-row: 1;
-		-ms-grid-column: 1;
+	.kredittkort-info {
+		height: 3rem;
+		margin: 1rem 3rem;
+		border: none;
 	}
 
-	.kredittkort-logo-container {
-		-ms-grid-row: 2;
-		-ms-grid-column: 1;
+	.kredittkort-sokna {
+		background-color: inherit;
+		height: auto;
+		position: initial;
+
+		margin: 2rem 0;
 	}
 
-	.kredittkort-info-container {
-		-ms-grid-row: 1;
-		-ms-grid-column: 2;
-		-ms-grid-row-span: 2;
+	.kredittkort-lesmer {
+		margin-bottom: 1rem;
 	}
 
-	.kredittkort-list-container {
-		-ms-grid-row: 1;
-		-ms-grid-column: 3;
-		-ms-grid-row-span: 2;
+	.kredittkort-sokna-lenke {
+		position: initial;
+		display: inline-block;
 	}
 
-	.kredittkort-end-container {
-		display: -ms-flexbox;
-
-		align-items: flex-start;
-
-		-ms-grid-row: 1;
-		-ms-grid-column: 4;
-		-ms-grid-row-span: 2;
-
+	.kredittkort-alderow,
+	.kredittkort-aldersgrense,
+	.kredittkort-makskreditt,
+	.kredittkort-rentefrikreditt {
+		display: inline-block;
+		width: 25%;
+		padding: 0;
+		font-size: 1.2rem;
 	}
 
+	.kredittkort-effrente {
+		margin: 2rem 0;
+	}
+
+	.kredittkort-blurb {
+		margin: auto;
+		padding: 0;
+		width: 10rem;
+	}
+
+	.kredittkort-sep {
+		display: none;
+	}
 }

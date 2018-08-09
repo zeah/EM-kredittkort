@@ -1,205 +1,251 @@
-
-.kredittkort-ul {
-	padding: 0;
-	margin: 0;
-	clear: both;
-
-	/*display: flex;*/
+/*
+	INDEX
+	#####
+	-defaults
+	-wordpress fixes
+	
+	LIST CONTAINER (UL)
+	CONTAINER FOR EACH ITEM (LI)
+	TITLE
+		H2
+		ANCHOR
+	IMAGE SPRITE
+*/
+html {
+	font-size: 62.5%;
 }
 
+/*
+	LIST CONTAINER (UL)
+*/
+.kredittkort-kortliste {
+	/* remove default */
+	margin: 0;
+	padding: 0;
+	font-size: 1.6rem;
+	font-family: "arial", sans-serif;
+	clear: both;
+	opacity: 1 !important;
+}
+
+/*
+	CONTAINER FOR EACH ITEM (LI)
+*/
 .kredittkort-container {
 	list-style: none;
+	margin-bottom: 3rem;
 
-	display: flex;
-
-	flex-direction: column;
-
-	align-items: center;
-
-	font-size: 1.6rem;
-
-	margin-bottom: 2rem;
-
+	padding-bottom: 0.5rem;
+	background-color: #f2f2f2;
 }
-
-
 .kredittkort-container:nth-child(odd) {
-	background-color: #eee;
+	background-color: #e6e6e6;
 }
 
-@media only screen and (min-width: 600px) {
-
-	.kredittkort-ul {
-		display: flex;
-		flex-wrap: wrap;
-	}
-	.kredittkort-container {
-		width: 50%;
-		margin-bottom: 0;
-		padding-top: 1rem;
-	}
-	.kredittkort-container:nth-child(odd) {
-		background-color: inherit;
-	}
-
-	.kredittkort-container:nth-child(4n) {
-		background-color: #eee;
-	}
-
-	.kredittkort-container:nth-child(4n+1) {
-		background-color: #eee;
-	}
-
-	
-} 
-
-.kredittkort-title-container {
-	margin: 0.5rem 0;
-}
-
+/*	TITLE
+	DIV -> H2 -> ANCHOR */
 .kredittkort-title {
-	font-size: 2rem;
-	text-decoration: none;
-	color: #000;
-}
-
-.kredittkort-title-container,
-.kredittkort-terning,
-.kredittkort-bestill-container,
-.kredittkort-logo-container {
-	/*align-self: center;*/
-}
-
-.kredittkort-title,
-.kredittkort-info-fem,
-.kredittkort-info-en {
-	font-weight: 700;
-}
-
-
-.kredittkort-logo-container {
-	/*display: flex;
-	justify-content: center;*/
-	max-width: 90%;
-}
-
-.kredittkort-logo {
-	width: 25rem;
-	height: auto;
-
-}
-
-.kredittkort-info-fem:before,
-.kredittkort-info-seks:before,
-.kredittkort-info-syv:before,
-.kredittkort-info-atte:before {
-	content: '\2022	';
-	color: gold;
-	text-shadow: 0 0 1px black;
-	font-size: 2rem;
-	margin-right: 0.5rem;
-
-	/*margin-bottom: 1.5rem;*/
-}
-
-.kredittkort-info-container,
-.kredittkort-list-container {
-	width: 25rem;
-	max-width: 90%;
-	/*margin: 1.5rem 0;*/
-	/*margin: 0 6rem;*/
-}
-
-.kredittkort-info-container {
-	margin-top: 3rem;
-	margin-bottom: 3rem;
-}
-
-.kredittkort-list-container {
-	margin-bottom: 3rem;
-}
-
-.kredittkort-info-fem,
-.kredittkort-info-seks,
-.kredittkort-info-syv,
-.kredittkort-info-atte {
-	margin-bottom: 1rem;
-}
-
-.kredittkort-end-container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.kredittkort-terning {
-	width: 50px;
-	height: 50px;
-
-	background-color: #e22;
-}
-
-/* dice dimensions */
-.kredittkort-rect-svg {
-	height: 50px;
-	width: 50px;
-}
-
-/* dice eye color */
-.kredittkort-circle-svg {
-	fill: #ffffff;
-}
-
-.kredittkort-bestill-container {
-	margin: 2rem 0;
-}
-
-.kredittkort-bestill {
+	padding-top: 1rem;
 	text-align: center;
-	/*display: flex;
-	justify-content: center;*/
-	margin-bottom: 1rem;
+}
+.kredittkort-title-header {
+	margin: 0; /* removes default tag padding */
+}
+.kredittkort-title-text {
+	/*text-shadow: 0 0 1px black;*/
+	text-decoration: none;
+	font-size: 2rem;
+	color: #000000; /* to be set in customizer */
 }
 
-.kredittkort-bestilltext {
-	/*margin-top: 1rem;
-	text-align: center;*/
+/*	THUMBNAIL
+	DIV -> IMG
+*/
+.kredittkort-thumbnail {
+	text-align: center;
+	/*height: 17rem;*/
+	/*zoom: 1.5;*/
+}
+.kredittkort-thumbnail-image {
+	width: 80%;
+	/*width: 20rem;*/
+	border-radius: 8px;
 }
 
+/*	INFO
+	*/
+.kredittkort-info {
+	display: list-item;
+	list-style: disc;
+	width: 80%;
+	margin-left: 10%;
+	margin-bottom: 2rem;
+	list-style-position: inside;
+}
+
+/* DEFAULT BUTTON CSS */
 .kredittkort-link {
-	padding: 1rem 2rem;
-
-	background-image: linear-gradient(hsl(120, 70%, 60%) 0%, hsl(120, 70%, 50%) 100%);
-	border: solid 2px hsl(120, 50%, 70%);
+	padding: 0.5rem 1rem;
 	border-radius: 5px;
 
-	font-size: 2.2rem;
-	font-weight: 700;
-	color: #fff;
-	text-shadow: 0 0 2px #000;
-	font-family: arial;
-	text-decoration: none;
+	background-color: red;
 
-	white-space: nowrap;
+	font-size: 2.2rem;
+	color: #ffffff;
+	text-decoration: none;
+	text-shadow: 0 0 1px black;
+	display: block;
+}
+
+.kredittkort-sokna,
+.kredittkort-lesmer {
+	width: 80%;
+	font-weight: 700;
 }
 
 .kredittkort-bestill-mobile {
 	position: fixed;
-	bottom: 20px;
+	bottom: 2rem;
 	left: 0;
 	right: 0;
+
+	display: flex;
+	justify-content: center;
 }
 
-.kredittkort-svg {
-	filter: drop-shadow(1px 1px 1px #333);
+
+/*
+	BESTILL BUTTON
+	DIV -> ANCHOR */
+.kredittkort-sokna {
+	text-align: center;
+	margin: 1rem auto;
+}
+
+.kredittkort-sokna-lenke {
+	/*background-color: #00b300;*/
+	background-image: linear-gradient(hsl(120, 70%, 60%), hsl(120, 70%, 30%));
+	font-size: 2.6rem;
+	white-space: nowrap;
 }
 
 .kredittkort-thumb {
 	fill: #fff;
 }
 
-.kredittkort-logo-ls {
-	width: 50%;
-	height: auto;
-	float: right;
+.kredittkort-bestill-mobile > .kredittkort-link {
+	padding: 1rem;
+}
+
+.kredittkort-terning {
+	width: 50px;
+	height: 50px;
+	background-color: #e22;
+	border-radius: 3px;
+	margin: 0 1rem;
+	margin-bottom: 2rem;
+}
+
+
+/* 2.6.1 dice svg */
+.kredittkort-rect-svg {
+	height: 50px;
+	width: 50px;
+}
+
+
+/* 2.6.2 dice eye svg */
+.kredittkort-circle-svg {
+	fill: #ffffff;
+}
+
+/*
+	LESMER BUTTON
+	DIV -> ANCHOR */
+.kredittkort-lesmer {
+	text-align: center;
+	margin: 1rem auto;
+}
+.kredittkort-lesmer-lenke {
+	background-color: #bbb;
+	font-size: 1.6rem;
+}
+
+.kredittkort-aldersgrense,
+.kredittkort-makskreditt,
+.kredittkort-alderow {
+	display:inline-block;
+	width: 48%;
+}
+
+.kredittkort-aldersgrense,
+.kredittkort-rentefrikreditt,
+.kredittkort-makskreditt,
+.kredittkort-alderow {
+	text-align: center;
+	padding-bottom: 1rem;
+}
+
+/*.kredittkort-makskreditt:before,
+.kredittkort-aldersgrense:before,
+.kredittkort-rentefrikreditt:before {
+	display: block;
+	font-weight: 700;
+}
+
+.kredittkort-makskreditt:before {
+	content: 'Maks Kreditt';
+}
+
+.kredittkort-aldersgrense:before {
+	content: 'Aldersgrense';
+}
+
+.kredittkort-rentefrikreditt:before {
+	content: 'Rentefri Kreditt';
+}*/
+
+.kredittkort-effrente {
+	margin: 1rem 0;
+	text-align: center;
+	font-style: italic;
+}
+
+.kredittkort-blurb-text {
+	display: none;
+}
+
+
+.kredittkort-logo-container {
+	text-align: center;
+}
+
+
+@media screen and (min-width: 481px) and (max-width: 1024px) {
+	.kredittkort-kortliste {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		clear: both;
+	}
+
+	.kredittkort-container {
+		width: 48%;
+		background-color: #f2f2f2;
+		margin: 0;
+		margin-bottom: 1rem;
+	}
+	.kredittkort-container:nth-child(odd) {
+		background-color: #f2f2f2;
+		margin-right: 1%;
+	}
+
+	.kredittkort-container:nth-child(4n+4),
+	.kredittkort-container:nth-child(4n+1) {
+		background-color: #e6e6e6;
+	}
+
+	.kredittkort-info {
+		height: 5rem;
+	}
 }
