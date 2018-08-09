@@ -56,12 +56,12 @@ final class Kredittkort_shortcode {
 										'meta_value_num' => 'ASC',
 										'title' => 'ASC'
 								   ],
-			'meta_key'			=> 'kredittkort_sort'.($atts['lan'] ? '_'.sanitize_text_field($atts['lan']) : '')
+			'meta_key'			=> 'kredittkort_sort'.($atts['kredittkort'] ? '_'.sanitize_text_field($atts['kredittkort']) : '')
 		];
 
 
 		$type = false;
-		if (isset($atts['lan'])) $type = $atts['lan'];
+		if (isset($atts['kredittkort'])) $type = $atts['kredittkort'];
 		if ($type)
 			$args['tax_query'] = array(
 					array(
