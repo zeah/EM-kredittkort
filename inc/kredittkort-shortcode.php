@@ -191,6 +191,7 @@ final class Kredittkort_shortcode {
 	 */
 	private function get_html($posts) {
 
+		$html = '<div class="kredittkort-kortliste">';
 
 		foreach ($posts as $p) {
 			$meta = get_post_meta($p->ID, 'kredittkort_data');
@@ -202,7 +203,7 @@ final class Kredittkort_shortcode {
 			// sanitize meta
 			$meta = $this->esc_kses($meta);
 
-			$html = '<div class="kredittkort-container">'; // add class here
+			$html .= '<div class="kredittkort-container">'; // add class here
 			
 			for ($i = 1; $i <= 6; $i++) 
 				$html .= '<div class="kredittkort-sep kredittkort-sep-'.$i.'"></div>';
@@ -307,6 +308,8 @@ final class Kredittkort_shortcode {
 			$html .= '</div>';
 
 		}
+
+		$html .= '</div>';
 		return $html;
 	}
 
