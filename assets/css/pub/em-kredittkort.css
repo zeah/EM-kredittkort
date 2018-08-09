@@ -184,6 +184,12 @@ p:empty {
 	margin: 3rem 0;
 }
 
+.kredittkort-bestill:after {
+	content: 'Annonselenke';
+	display: block;
+	margin-top: 1.5rem;
+}
+
 .kredittkort-thumb {
 	fill: #fff;
 }
