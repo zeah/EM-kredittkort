@@ -2,7 +2,7 @@
 /*
 Plugin Name: EM Kredittkort
 Description: Liste for kredittkort
-Version: 1.0.0
+Version: 1.0.1
 GitHub Plugin URI: zeah/EM-kredittkort-list
 */
 

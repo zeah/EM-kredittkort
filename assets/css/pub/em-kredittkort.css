@@ -150,7 +150,7 @@ p:empty {
 	margin: 0 auto; /* centering in edge */
 }
 .kredittkort-thumbnail-image {
-	/*width: 20rem;*/
+	width: 20rem;
 	border-radius: 8px;
 	user-select: none;
 }
