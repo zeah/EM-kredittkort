@@ -328,10 +328,12 @@ final class Kredittkort_shortcode {
 		if ($post->post_type != 'kredittkort') return $data;
 
 		$exclude = get_option('kredittkort_exclude');
-
 		if (!is_array($exclude)) $exclude = [];
-
 		if (in_array($post->ID, $exclude)) return $data;
+
+		$exclude_serp = get_option('kredittkort_exclude_serp');
+		if (!is_array($exclude_serp)) $exclude_serp = [];
+		if (in_array($post->ID, $exclude_serp)) return $data;
 
 		$html['html'] = $this->get_html([$post]);
 
