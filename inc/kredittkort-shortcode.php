@@ -128,6 +128,15 @@ final class Kredittkort_shortcode {
 				case 'right': $float = ' style="float: right; margin-left: 3rem;"'; break;
 			}
 		
+		if  ($atts['source']) {
+			if (preg_match('/(?:(?!\?|&))(?:source=.*?)(?:(&|$))/', $meta['bestill'], $matches))
+				$meta['bestill'] = str_replace($matches[0], '', $meta['bestill']); 
+
+			$meta['bestill'] = preg_replace('/\?$/', '', $meta['bestill']);
+ 
+			if (strpos($meta['bestill'], '?') !== false) $meta['bestill'] .= '&source=' . $atts['source'];
+			else $meta['bestill'] .= '?source=' . $atts['source'];
+		}
 
 		// returns with anchor
 		if ($meta['bestill']) return '<div class="kredittkort-logo-ls"'.($float ? $float : '').'><a target="_blank" rel=noopener href="'.esc_url($meta['bestill']).'"><img alt="'.esc_attr($post[0]->post_title).'" src="'.esc_url(get_the_post_thumbnail_url($post[0], 'full')).'"></a></div>';
@@ -171,6 +180,11 @@ final class Kredittkort_shortcode {
 			}
 		
 		if  ($atts['source']) {
+			if (preg_match('/(?:(?!\?|&))(?:source=.*?)(?:(&|$))/', $meta['bestill'], $matches))
+				$meta['bestill'] = str_replace($matches[0], '', $meta['bestill']); 
+
+			$meta['bestill'] = preg_replace('/\?$/', '', $meta['bestill']);
+ 
 			if (strpos($meta['bestill'], '?') !== false) $meta['bestill'] .= '&source=' . $atts['source'];
 			else $meta['bestill'] .= '?source=' . $atts['source'];
 		}
