@@ -77,7 +77,8 @@ final class Kredittkort_edit {
 											<li><b>[kredittkort-bilde name="xx"]</b>
 											<p>Name is required. Will show the creditcard\'s thumbnail.</p></li>
 											<li><b>[kredittkort-bestill name="xx"]</b>
-											<p>Name is required. Will show the creditcard\'s button.</p></li>
+											<p>Name is required. Will show the creditcard\'s button.
+											<br>[kredittkort-bestlil name="xx" source="test"] will append &source=test at the link.</p></li>
 										</ul>
 										</li>
 										<li id="kredittkort-aldri"><h2>Aldri vis</h2>
