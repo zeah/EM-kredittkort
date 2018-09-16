@@ -345,7 +345,8 @@ final class Kredittkort_edit {
 		foreach($data as $key => $value) {
 			switch ($key) {
 				case 'bestill':
-				case 'redmore': $d[$key] = sanitize_text_field($value); break;
+				case 'pixel':
+				case 'readmore': $d[$key] = sanitize_text_field($value); break;
 				default: $this->sanitize($value); break;
 			}
 		}
