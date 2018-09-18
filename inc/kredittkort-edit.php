@@ -347,7 +347,7 @@ final class Kredittkort_edit {
 				case 'bestill':
 				case 'pixel':
 				case 'readmore': $d[$key] = sanitize_text_field($value); break;
-				default: $this->sanitize($value); break;
+				default: $d[$key] = $this->sanitize($value); break;
 			}
 		}
 
