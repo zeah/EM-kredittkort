@@ -25,7 +25,9 @@
 .kredittkort-input-title {
 	font-size: 16px;
 }
-
+.kredittkort-input-container input[type=checkbox]{
+	width: auto;
+}
 /* overview window */
 
 #kredittkort-myTable2 {
