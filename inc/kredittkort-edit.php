@@ -227,8 +227,8 @@ final class Kredittkort_edit {
 		$exclude_serp = get_option('kredittkort_exclude_serp');
 		if (!is_array($exclude_serp)) $exclude_serp = [];
 
-		echo '<p><input name="kredittkort_exclude" id="kredittkort_exc" type="checkbox"'.(array_search($post->ID, $exclude) !== false ? ' checked' : '').'><label for="kredittkort_exc">Kortet vil ikke vises på front-end når boksen er markert.</label></p>
-		      <p><input name="kredittkort_exclude_serp" id="kredittkort_exc_serp" type="checkbox"'.(array_search($post->ID, $exclude_serp) !== false ? ' checked' : '').'><label for="kredittkort_exc_serp">Ikke hvis i interal SERP.</label></p>';
+		echo '<p><input name="kredittkort_exclude" id="kredittkort_exc" type="checkbox"'.(array_search($post->ID, $exclude) !== false ? ' checked' : '').'><label for="kredittkort_exc">Kortet vil aldri bli vist på front-end.</label></p>
+		      <p><input name="kredittkort_exclude_serp" id="kredittkort_exc_serp" type="checkbox"'.(array_search($post->ID, $exclude_serp) !== false ? ' checked' : '').'><label for="kredittkort_exc_serp">Vis ikke (kun) på internal search.</label></p>';
 	}
 
 
