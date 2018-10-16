@@ -179,7 +179,7 @@ final class Kredittkort_edit {
 		
 		/* adding admin css and js */
 		// wp_enqueue_style('em-kredittkort-admin-style', KREDITTKORT_PLUGIN_URL . 'assets/css/admin/em-kredittkort.css', array(), '1.0.1');
-		wp_enqueue_script('em-kredittkort-admin', KREDITTKORT_PLUGIN_URL . 'assets/js/admin/em-kredittkort.js', array(), '1.0.1', true);
+		wp_enqueue_script('em-kredittkort-admin', KREDITTKORT_PLUGIN_URL . 'assets/js/admin/em-kredittkort.js', array(), '1.0.2', true);
 	}
 
 

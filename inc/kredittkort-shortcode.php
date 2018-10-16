@@ -262,8 +262,14 @@ final class Kredittkort_shortcode {
 			for ($i = 1; $i <= 6; $i++) 
 				$html .= '<div class="kredittkort-sep kredittkort-sep-'.$i.'"></div>';
 			
-			// title 
-			$html .= '<div class="kredittkort-title"><h2 class="kredittkort-title-header"><a class="kredittkort-title-text" href="'.esc_url($meta['readmore']).'">'.esc_html($p->post_title).'</a></h2></div>';
+			// title
+			// $title = $
+			
+			// $html .= '<div class="kredittkort-title"><h2 class="kredittkort-title-header"><a class="kredittkort-title-text" href="'.esc_url($meta['readmore']).'">'.esc_html($p->post_title).'</a></h2></div>';
+			$html .= sprintf('<div class="kredittkort-title"><h2 class="kredittkort-title-header"><a class="kredittkort-title-text" href="%s">%s</a></h2></div>',
+					esc_url($meta['readmore']),
+					$meta['ctitle'] ? $meta['ctitle'] : esc_html($p->post_title)
+				);
 		
 			// image
 			$html .= '<div class="kredittkort-thumbnail"><img class="kredittkort-thumbnail-image" src="'.get_the_post_thumbnail_url($p).'"></div>';

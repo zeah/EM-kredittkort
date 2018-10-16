@@ -125,6 +125,7 @@
 			step: 0.01
 		}));
 
+	container.appendChild(newinput({name: 'ctitle', title: 'Custom Title'}));
 	container.appendChild(newinput({name: 'readmore', title: 'Read More Link'}));
 
 	container.appendChild(newinput({name: 'bestill', title: 'Bestill Link'}));
