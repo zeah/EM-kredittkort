@@ -51,19 +51,27 @@ p:empty {
 	display: grid;
 	display: -ms-grid;
 
-	grid-template-columns: 23rem 1px 5fr 1px 15rem 1px 2fr 1px 23rem;
+	/*grid-template-columns: 23rem 1px 5fr 1px 15rem 1px 2fr 1px 23rem;*/
+	grid-template-columns: 23rem 1px 5fr 1px 10rem 1px 1px 3fr 1px 23rem;
 	-ms-grid-columns: 23rem 1px 5fr 1px 15rem 1px 2fr 1px 23rem;
 
 	grid-template-rows: 3.5rem repeat(3, 4.6rem) 1px 4.6rem;
 	-ms-grid-rows: 3.5rem 4.6rem 4.6rem 4.6rem 1px 4.6rem;
 
-	grid-template-areas:
+	/*grid-template-areas:
 		"title title title title title title title title title"
 		"thumbnail sep1 info-one sep2 alder alder alder sep3 bestill"
 		"thumbnail sep1 info-two sep2 kreditt kreditt kreditt sep3 bestill"
 		"thumbnail sep1 info-three sep2 rentefri rentefri rentefri sep3 ."
 		"sep6 sep6 sep6 sep6 sep6 sep6 sep6 sep6 sep6"
-		"lesmer sep4 blurb blurb blurb sep5 effrente effrente effrente";
+		"lesmer sep4 blurb blurb blurb sep5 effrente effrente effrente";*/
+
+	grid-template-areas: "title title title title title title title title title title"
+		"thumbnail sep1 info-one sep2 alder alder alder alder sep3 bestill"
+		"thumbnail sep1 info-two sep2 kreditt kreditt kreditt kreditt sep3 bestill"
+		"thumbnail sep1 info-three sep2 rentefri rentefri rentefri rentefri sep3 bestill"
+		"sep6 sep6 sep6 sep6 sep6 sep6 sep6 sep6 sep6 sep6"
+		"lesmer sep4 blurb blurb blurb sep5 effrente effrente effrente effrente";
 
 	margin-bottom: 2rem;
 	background-color: hsl(204, 8%, 98%);
@@ -74,11 +82,14 @@ p:empty {
 	text-align: center;
 
 	/* default font stuff b/c this is a plugin */
-	font-size: 1.4rem;
+	font-size: 1.5rem;
 	font-weight: 400;
 	font-style: normal;
-	font-family: arial;
+	/*font-family: arial;*/
 	clear: both;
+
+
+
 
 }
 .kredittkort-container:nth-child(odd) {
@@ -180,6 +191,7 @@ p:empty {
 }
 
 .kredittkort-bestill {
+	align-self: center;
 	text-align: center;
 	margin: 3rem 0;
 }
@@ -253,7 +265,12 @@ p:empty {
 	padding-left: 2rem;
 	display: flex;
 	justify-content: space-between;
-	line-height: 3.2;
+	/*line-height: 3.2;*/
+
+	line-height: 1.2;
+	/*display: flex;*/
+	align-items: center;
+	text-align: left;
 }
 .kredittkort-logo-container {
 	position: relative;
@@ -262,9 +279,10 @@ p:empty {
 }
 
 .kredittkort-logo {
-	position: relative;
-	top: 0.5rem;
-	right: 1rem;
+	display: block;
+	/*position: relative;*/
+	/*top: 0.5rem;*/
+	/*right: 1rem;*/
 
 	max-width: 100%;
 }
