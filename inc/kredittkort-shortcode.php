@@ -407,21 +407,24 @@ final class Kredittkort_shortcode {
 			'page' => 'sub'
 		];
 
+		$adtration = [
+			'click_id' => 'epi'
+		];
+
 		if (strpos($link, 'axo') !== false) $def = $axo;
 		elseif (strpos($link, 'adservice') !== false) $def = $adservice;
-		else $def = $axo; // axo is currently default
+		// elseif (strpos($link, 'adtraction') !== false) $def = $adtraction;
+		else $def = $adservice;
 
 		// parsing given url for query string
 		parse_str(parse_url($link)['query'], $url_query);
 
 		// parsing current url for query string
 		parse_str($_SERVER['QUERY_STRING'], $result);
-		// wp_die('<xmp>'.print_r($url_query, true).'</xmp>');
 		
 		// source
 		if ($def['source']) {
 			if ($source) $result[$def['source']] = $source;
-			// elseif ($url_query[$def['source']]) $result[$def['source']] = $url_query[$def['source']];
 			elseif (!$url_query[$def['source']]) $result[$def['source']] = $_SERVER['SERVER_NAME'];
 		}
 
