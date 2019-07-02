@@ -285,7 +285,7 @@ final class Kredittkort_shortcode {
 
 			// bestill button
 			$html .= '<div class="kredittkort-sokna">';
-
+			// wp_die('<xmp>'.print_r($meta, true).'</xmp>');
 			if ($meta['terning'] != 'ingen') {
 				$html .= '<svg class="kredittkort-terning">
 							<defs>
